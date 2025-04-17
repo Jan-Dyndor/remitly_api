@@ -16,7 +16,6 @@ A RESTful API application for accessing and managing SWIFT/BIC code data. Built 
 
 ## 🚀 Setup Instructions
 
-### 1. Clone the repository
 
 ## Running the Remitly API Application with Docker
 
@@ -26,7 +25,7 @@ This document outlines the necessary steps to download, build, and run the Remit
 
 Before you begin, ensure you have the following tools installed on your machine:
 
-* **Docker:** [Download and install Docker](https://www.docker.com/get-started)
+* **Docker:** 
 * **Docker Compose:** Typically installed with Docker Desktop. If you only have Docker Engine, you might need to install it separately. Refer to the Docker documentation.
 
 ### Getting Started
