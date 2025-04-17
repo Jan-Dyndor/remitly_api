@@ -1,21 +1,17 @@
-# SQLite DB (jeśli nie chcesz commitować lokalnej wersji bazy)
 *.sqlite3
 *.db
 
-# Docker pliki tymczasowe
+
 **/__pycache__/
 *.pyc
 *.pyo
 *.pyd
 .pytest_cache/
 
-# VS Code
 .vscode/
 
-# Notatniki Jupyter
 .ipynb_checkpoints/
 
-# Środowiska wirtualne
 .venv/
 venv/
 env/
