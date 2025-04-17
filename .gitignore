@@ -1,24 +1,21 @@
-# Created by pytest automatically.
-# Python
-__pycache__/
-*.py[cod]
+# SQLite DB (jeśli nie chcesz commitować lokalnej wersji bazy)
 *.sqlite3
 *.db
-*.db-journal
 
-# Virtual environment
-venv/
-.venv/
-env/
-ENV/
+# Docker pliki tymczasowe
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
 
-# Editor configs
+# VS Code
 .vscode/
-.idea/
-.DS_Store
 
-# Notebook checkpoints
+# Notatniki Jupyter
 .ipynb_checkpoints/
 
-
-
+# Środowiska wirtualne
+.venv/
+venv/
+env/
