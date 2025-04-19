@@ -1,6 +1,6 @@
 # Remitly SWIFT API
 
-A RESTful API application for accessing and managing SWIFT/BIC code data. Built with FastAPI, SQLAlchemy and SQLite, and containerized using Docker.
+A RESTful API application for accessing and managing SWIFT code data. Built with FastAPI, SQLAlchemy and SQLite, and containerized using Docker.
 
 ---
 
@@ -32,9 +32,19 @@ This document outlines the necessary steps to download, build, and run the Remit
 
 Before you begin, ensure you have the following tools installed on your machine:
 
+- ⚠️ **CSV file** ⚠️ The required CSV file is not stored in the repository for security and compliance reasons. It should be created from the spreadsheet given to interns as data in order to create API
+
+1. Download the original Excel file named:
+   `Interns_2025_SWIFT_CODES` (provided as part of the recruitment assignment)
+2. Open it and **save it as CSV**
+3. Rename the file to (if needed): `Interns_2025_SWIFT_CODES - Sheet1.csv`
+4. Place the file in the following directory:
+   ```bash
+   remitly_api/app/data/
+   ```
+
 - **Docker:**
 - **Docker Compose:** Typically installed with Docker Desktop. If you only have Docker Engine, you might need to install it separately. Refer to the Docker documentation.
-- **CSV file** ⚠️ The required CSV file is not stored in the repository for security and compliance reasons. It should be created from the spreadsheet given to interns as data in order to create API
 
 ## 🧾 API Endpoints Overview
 
@@ -84,6 +94,8 @@ Before you begin, ensure you have the following tools installed on your machine:
      Interns_2025_SWIFT_CODES - Sheet1.csv
     ```
 
+    This repository excludes cache and sensitive files using .gitignore and .dockerignore. The SQLite database is recreated and loaded from the CSV each time you rebuild the Docker image.
+
 3.  **Run the Application with Docker Compose:**
 
     In the root directory of the downloaded repository (where the `docker-compose.yml` file is located), execute the command:
@@ -97,6 +109,8 @@ Before you begin, ensure you have the following tools installed on your machine:
 
     Wait for Docker to download the necessary base images, build your application image, and start the container. In the logs, you should see information about the database creation and the Uvicorn server starting on port `8080`.
 
+    If image is already created use `docker-compose up`.
+
 4.  **Access the Application:**
 
     Once the container has started successfully, your API application will be accessible at `http://localhost:8080` in your web browser or using a tool like `curl`.
@@ -105,10 +119,25 @@ Before you begin, ensure you have the following tools installed on your machine:
     - **OpenAPI schema** Available at `http://localhost:8080/openapi.json`.
 
 5.  **TESTING**
-    To run unit and integration tests locally (if desired):
+    After running the container with:
+
     ```bash
-    pytest app/tests
+    docker compose up --build
     ```
+
+    or
+
+    ```bash
+    docker compose up
+    ```
+
+    In **another** terminal run:
+
+    ```bash
+    docker exec -it remitly_api-web-1 pytest
+    ```
+
+    Tests are stred in tests folder, can be runed locally
 
 ### Troubleshooting
 
