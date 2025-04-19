@@ -1,4 +1,0 @@
-{
-  "app/tests/test_endpoints.py::test_get_swift_code": true,
-  "app/tests/test_endpoints.py::test_get_swift_code_failure": true
-}
