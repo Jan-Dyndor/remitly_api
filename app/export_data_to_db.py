@@ -3,10 +3,10 @@ from database import engine
 import os
 
 
-if not os.path.exists("app/data/interns_2025_swift_codes.csv"):
+if not os.path.exists("app/data/Interns_2025_SWIFT_CODES - Sheet1.csv"):
     raise FileNotFoundError("CSV file not found in ./data/")
 
-data = pd.read_csv("app/data/interns_2025_swift_codes.csv")
+data = pd.read_csv("app/data/Interns_2025_SWIFT_CODES - Sheet1.csv")
 data = data.rename(
     columns={
         "SWIFT CODE": "swiftCode",
