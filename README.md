@@ -6,13 +6,21 @@ A RESTful API application for accessing and managing SWIFT/BIC code data. Built 
 
 ## 🔧 Features
 
-- Parse and store SWIFT code data from CSV
-- Headquarters and branch identification
-- Retrieve SWIFT data by code or country
-- Add and delete SWIFT entries
-- Input validation and proper error handling
-- Unit and integration tests
-- Dockerized for easy deployment
+- Parses SWIFT code data from a provided `.csv` file.
+- Stores data in an SQLite database using SQLAlchemy.
+- Normalizes and capitalizes all country codes and names.
+- Identifies headquarter vs branch based on the SWIFT code suffix.
+- Offers fully RESTful API endpoints with Swagger UI documentation.
+- Provides unit and integration tests.
+- Fully containerized with **Docker + Docker Compose**.
+- Deploys API on `localhost:8080`.
+
+## ⚙️ How It Works
+
+- All SWIFT codes ending in `XXX` are treated as **headquarters**.
+- If the SWIFT code has the same first 8 characters as a headquarter, it’s considered a **branch**.
+- Country names and ISO2 codes are normalized to uppercase before saving.
+- The data is parsed from a provided CSV and saved into an SQLite database when the container starts.
 
 ## 🚀 Setup Instructions
 
@@ -26,9 +34,32 @@ Before you begin, ensure you have the following tools installed on your machine:
 
 - **Docker:**
 - **Docker Compose:** Typically installed with Docker Desktop. If you only have Docker Engine, you might need to install it separately. Refer to the Docker documentation.
-- **CSV file** of a spreadsheet given to interns as data in order to create API
+- **CSV file** ⚠️ The required CSV file is not stored in the repository for security and compliance reasons. It should be created from the spreadsheet given to interns as data in order to create API
 
-### Getting Started
+## 🧾 API Endpoints Overview
+
+### ✅ `GET /v1/swift-codes/{swiftCode}`
+
+- Returns a **single SWIFT code** entry.
+- If it’s a **headquarter**, also returns a list of branches matching first 8 chars of the code.
+- Returns 404 if not found.
+
+### ✅ `GET /v1/swift-codes/country/{countryISO2}`
+
+- Returns **all SWIFT codes** for a given country (2-letter ISO code).
+- Normalizes lower/upper case input.
+
+### ✅ `POST /v1/swift-codes`
+
+- Adds a new SWIFT code.
+- Returns 201 on success or 409 if the code already exists.
+
+### ✅ `DELETE /v1/swift-codes/{swiftCode}`
+
+- Deletes a SWIFT code if it exists.
+- Returns 200 on success or 404 otherwise.
+
+# Getting Started
 
 1.  **Download the Repository from GitHub:**
 
@@ -39,15 +70,19 @@ Before you begin, ensure you have the following tools installed on your machine:
     cd remitly_api
     ```
 
-2.  **The app does not include the .csv file in the repository (to avoid large data files in version control).**
+2.  **The app does not include the .csv file in the repository.**
     You must manually add the CSV file before starting the app.
-    In order to do so, convert exel spreadsheet to CSV format and place it in data folder. Consider naming confention as follows: `Interns_2025_SWIFT_CODES - Sheet1.csv`
-    remitly_api/
-    └── app/
-    └── data/
-    └── Interns_2025_SWIFT_CODES - Sheet1.csv
+    In order to do so, convert excel spreadsheet to CSV format and place it in **data** folder.
 
-    If you are interesetd in data exploration, you need to add the file path to explore_data.ipynb file
+    ```bash
+    remitly_api/app/data/
+    ```
+
+    Make sure it is named exactly:
+
+    ```bash
+     Interns_2025_SWIFT_CODES - Sheet1.csv
+    ```
 
 3.  **Run the Application with Docker Compose:**
 
@@ -68,6 +103,12 @@ Before you begin, ensure you have the following tools installed on your machine:
 
     - **API Documentation (Swagger UI):** Available at `http://localhost:8080/docs`.
     - **OpenAPI schema** Available at `http://localhost:8080/openapi.json`.
+
+5.  **TESTING**
+    To run unit and integration tests locally (if desired):
+    ```bash
+    pytest app/tests
+    ```
 
 ### Troubleshooting
 

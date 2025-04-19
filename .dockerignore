@@ -9,3 +9,4 @@ venv
 .Python
 .pytest_cache
 .env
+*.csv

@@ -30,6 +30,5 @@ needed_columns = [
 
 relevant_data = data[needed_columns]
 relevant_data
-# Data in database will be replaced each time container runs!
-# To change that use `append`
+
 relevant_data.to_sql("swift_codes", con=engine, if_exists="replace", index=False)
